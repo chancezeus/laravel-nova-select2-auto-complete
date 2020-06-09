@@ -100,6 +100,14 @@
             makeSelect2() {
                 const select2 = $(this.$refs.select2)
 
+                if (this.options.language) {
+                    try {
+                        this.options.language = require(`select2/dist/js/i18n/${this.options.language}.js`);
+                    } catch (e) {
+                        delete this.options.language;
+                    }
+                }
+
                 select2
                     .select2(this.options)
                     .on('select2:select', e => this.handleChange(e.params.data.id))
